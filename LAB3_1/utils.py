@@ -3,6 +3,8 @@ from typing import Tuple
 from matplotlib import pyplot as plt
 from numpy import ndarray
 from torch import Tensor, zeros
+from torchvision.datasets import MNIST
+from torchvision.transforms import Compose, ToTensor, Normalize
 
 
 def show_split(tr: ndarray, dev: ndarray, ts: ndarray):
@@ -64,6 +66,6 @@ def make_sequence(df: ndarray, steps: int, dt: str, unsqueeze: bool = False) -> 
         df_y[idx, :] = y
 
     if unsqueeze:
-        df_x = df_x.unsqueeze(2)
+        df_x = df_x.unsqueeze(-1)
 
     return df_x, df_y
