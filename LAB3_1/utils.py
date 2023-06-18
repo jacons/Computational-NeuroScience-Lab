@@ -3,7 +3,7 @@ from typing import Tuple
 import torch
 from matplotlib import pyplot as plt
 from numpy import ndarray
-from torch import Tensor, zeros, eq
+from torch import Tensor, zeros
 from torch.utils.data import Dataset
 from torchvision.datasets import MNIST
 
@@ -114,5 +114,5 @@ def compute_acc(predicted: Tensor, labels: Tensor):
     :param labels:  true label
     :return:
     """
-    correct = eq(predicted.argmax(dim=-1), labels).sum().item()
-    return float(correct) / float(labels.size(0))
+    correct = sum(predicted.argmax(-1) - labels == 0)
+    return float(correct) / len(labels)
