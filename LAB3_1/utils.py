@@ -4,10 +4,8 @@ import torch
 from matplotlib import pyplot as plt
 from numpy import ndarray
 from torch import Tensor, zeros, eq
-from torch.nn import Flatten
 from torch.utils.data import Dataset
 from torchvision.datasets import MNIST
-from torchvision.transforms import Compose, ToTensor, Normalize, Lambda
 
 
 def show_split(tr: ndarray, dev: ndarray, ts: ndarray):
@@ -41,7 +39,7 @@ def show_result(tr_y_pred: Tensor, tr_y: Tensor, ts_y_pred: Tensor, ts_y: Tensor
 
     axs[0].plot(tr_y_pred[-1000:], label="Tr output")
     axs[0].plot(tr_y[-1000:], label="Target output")
-    axs[0].set_title("Comparison between Timeseries on Traning set (last 1k elements)")
+    axs[0].set_title("Comparison between Timeseries on Training set (last 1k elements)")
     axs[0].grid()
     axs[0].legend()
 
@@ -90,6 +88,10 @@ class Sequential_mnist(Dataset):
             data = original_mist.data[50000:]
             target = original_mist.targets[50000:]
 
+        elif hold_out == "train-dev":
+            original_mist = MNIST(root="sources", download=True, train=True)
+            data = original_mist.data
+            target = original_mist.targets
         else:
             original_mist = MNIST(root="sources", download=True, train=False)
             data = original_mist.data
