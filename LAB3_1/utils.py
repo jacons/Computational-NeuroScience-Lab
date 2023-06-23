@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 import torch
 from matplotlib import pyplot as plt
@@ -22,7 +22,7 @@ def show_split(tr: ndarray, dev: ndarray, ts: ndarray):
     plt.show()
 
 
-def show_loss(tr_loss: Tensor):
+def show_loss(tr_loss: Union[Tensor, ndarray]):
     plt.figure(figsize=(5, 4))
     plt.title("Training loss")
     plt.plot(tr_loss, label="Tr loss")
@@ -107,7 +107,7 @@ class Sequential_mnist(Dataset):
         return self.data[idx], self.target[idx]
 
 
-def compute_acc(predicted: Tensor, labels: Tensor):
+def compute_acc(predicted: Union[Tensor, ndarray], labels: Union[Tensor, ndarray]):
     """
     Compute the accuracy of model both for real and fake images
     :param predicted: label predicted by discriminator
