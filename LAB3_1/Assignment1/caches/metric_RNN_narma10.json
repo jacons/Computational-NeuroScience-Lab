@@ -1,0 +1,18 @@
+{
+  "best_config": {
+    "units": 200,
+    "epochs": 80,
+    "lr": 0.003,
+    "layers": 2,
+    "activ": "tanh"
+  },
+  "Model_evaluation": [
+    0.002294,
+    0.002008,
+    0.001967
+  ],
+  "Final_retrain": [
+    0.001976,
+    0.001759
+  ]
+}

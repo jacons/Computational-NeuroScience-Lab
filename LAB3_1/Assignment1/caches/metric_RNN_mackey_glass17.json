@@ -1,0 +1,18 @@
+{
+  "best_config": {
+    "units": 500,
+    "epochs": 80,
+    "lr": 0.008,
+    "layers": 2,
+    "activ": "relu"
+  },
+  "Model_evaluation": [
+    2.9e-05,
+    1.8e-05,
+    6.8e-05
+  ],
+  "Final_retrain": [
+    1.6e-05,
+    4.7e-05
+  ]
+}
