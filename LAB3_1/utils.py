@@ -75,25 +75,25 @@ def make_sequence(df: ndarray, steps: int, dt: str, unsqueeze: bool = False) -> 
 
 class Sequential_mnist(Dataset):
 
-    def __init__(self, hold_out: str):
+    def __init__(self, hold_out: str, root: str):
         super(Sequential_mnist, self).__init__()
 
         if hold_out == "train":
-            original_mist = MNIST(root="sources", download=True, train=True)
+            original_mist = MNIST(root=root, download=True, train=True)
             data = original_mist.data[:50000]
             target = original_mist.targets[:50000]
 
         elif hold_out == "dev":
-            original_mist = MNIST(root="sources", download=True, train=True)
+            original_mist = MNIST(root=root, download=True, train=True)
             data = original_mist.data[50000:]
             target = original_mist.targets[50000:]
 
         elif hold_out == "train-dev":
-            original_mist = MNIST(root="sources", download=True, train=True)
+            original_mist = MNIST(root=root, download=True, train=True)
             data = original_mist.data
             target = original_mist.targets
         else:
-            original_mist = MNIST(root="sources", download=True, train=False)
+            original_mist = MNIST(root=root, download=True, train=False)
             data = original_mist.data
             target = original_mist.targets
 
