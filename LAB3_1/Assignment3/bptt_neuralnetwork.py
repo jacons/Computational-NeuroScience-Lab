@@ -33,7 +33,7 @@ def d_CELoss(y_pred: ndarray, y: ndarray):
     return - (y_hoe / y_pred) + (1 - y_hoe) / (1 - y_pred)
 
 
-class RecurrentNeuralNetwork:
+class HandMadeRNN:
     def __init__(self, input_dim: int, output_dim: int, hidden_dim: int, lr: float, clip: float):
         self.hidden_dim = hidden_dim
         self.input_dim = input_dim
