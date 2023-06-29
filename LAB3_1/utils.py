@@ -33,8 +33,13 @@ def show_loss(tr_loss: Union[Tensor, ndarray]):
     plt.show()
 
 
-def show_result(tr_y_pred: Tensor, tr_y: Tensor, ts_y_pred: Tensor, ts_y: Tensor):
-    tr_y_pred, tr_y, ts_y_pred, ts_y = tr_y_pred.cpu(), tr_y.cpu(), ts_y_pred.cpu(), ts_y.cpu()
+def show_result(tr_y_pred: Union[Tensor, ndarray],
+                tr_y: Union[Tensor, ndarray],
+                ts_y_pred: Union[Tensor, ndarray],
+                ts_y: Union[Tensor, ndarray]):
+    if isinstance(tr_y_pred, Tensor):
+        tr_y_pred, tr_y, ts_y_pred, ts_y = tr_y_pred.cpu(), tr_y.cpu(), ts_y_pred.cpu(), ts_y.cpu()
+
     f, axs = plt.subplots(ncols=1, nrows=2, figsize=(28, 7))
 
     axs[0].plot(tr_y_pred[-1000:], label="Tr output")
@@ -52,9 +57,12 @@ def show_result(tr_y_pred: Tensor, tr_y: Tensor, ts_y_pred: Tensor, ts_y: Tensor
     plt.show()
 
 
-def make_sequence(df: ndarray, steps: int, dt: str, unsqueeze: bool = False) -> Tuple[Tensor, Tensor]:
+def make_sequence(df: ndarray,
+                  steps: int,
+                  dt: str,
+                  unsqueeze: bool = False,
+                  to_numpy: bool = False) -> Tuple[Union[Tensor, ndarray], Union[Tensor, ndarray]]:
     # Build a tensor used for the training
-
     len_df = df.shape[0]  # Length of dataset
 
     df_x = zeros(len_df - steps, steps)
@@ -69,6 +77,9 @@ def make_sequence(df: ndarray, steps: int, dt: str, unsqueeze: bool = False) -> 
 
     if unsqueeze:
         df_x = df_x.unsqueeze(-1)
+
+    if to_numpy:
+        df_x, df_y = df_x.numpy(), df_y.numpy()
 
     return df_x, df_y
 
