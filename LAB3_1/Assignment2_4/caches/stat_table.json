@@ -1,0 +1,56 @@
+{
+  "results_rnn": {
+    "training_loss": [
+      1.797,
+      0.078
+    ],
+    "test_loss": [
+      1.791,
+      0.071
+    ],
+    "training_acc": [
+      0.30181,
+      3.450
+    ],
+    "test_acc": [
+      0.30019,
+      2.943
+    ]
+  },
+  "results_lstm": {
+    "training_loss": [
+      0.367,
+      0.111
+    ],
+    "test_loss": [
+      0.368,
+      0.108
+    ],
+    "training_acc": [
+      0.87530,
+      4.394
+    ],
+    "test_acc": [
+      0.87530,
+      4.406
+    ]
+  },
+  "results_gru": {
+    "training_loss": [
+      0.232,
+      0.049
+    ],
+    "test_loss": [
+      0.229,
+      0.046
+    ],
+    "training_acc": [
+      0.92655,
+      1.702
+    ],
+    "test_acc": [
+      0.92834,
+      1.797
+    ]
+  }
+}
