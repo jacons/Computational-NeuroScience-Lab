@@ -1,0 +1,36 @@
+{
+  "NARMA": {
+    "best_config": {
+      "units": 20,
+      "epochs": 100,
+      "lr": 0.005,
+      "b_step": 15
+    },
+    "Model_evaluation": [
+      0.001056,
+      0.001061,
+      0.001082
+    ],
+    "Final_retrain": [
+      0.001088,
+      0.001096
+    ]
+  },
+  "MG17": {
+    "best_config": {
+      "units": 500,
+      "epochs": 100,
+      "lr": 0.005,
+      "b_step": 12
+    },
+    "Model_evaluation": [
+      0.000144,
+      0.000139,
+      0.000142
+    ],
+    "Final_retrain": [
+      0.000102,
+      0.000101
+    ]
+  }
+}

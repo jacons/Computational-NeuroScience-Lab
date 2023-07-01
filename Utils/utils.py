@@ -86,7 +86,7 @@ def make_sequence(df: ndarray,
 
 class Sequential_mnist(Dataset):
 
-    def __init__(self, hold_out: str, root: str):
+    def __init__(self, hold_out: str, root: str, one_hot_encoding: bool = False):
         super(Sequential_mnist, self).__init__()
 
         if hold_out == "train":
@@ -110,6 +110,9 @@ class Sequential_mnist(Dataset):
 
         self.data = data.reshape(-1, 28 * 28, 1).contiguous().type(torch.float32) / 255
         self.target = target
+
+        if one_hot_encoding:
+            self.target = torch.nn.functional.one_hot(self.target)
 
     def __len__(self):
         return self.data.shape[0]

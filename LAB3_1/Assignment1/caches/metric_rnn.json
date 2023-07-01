@@ -1,0 +1,38 @@
+{
+  "NARMA": {
+    "best_config": {
+      "units": 200,
+      "epochs": 80,
+      "lr": 0.003,
+      "layers": 1,
+      "activ": "tanh"
+    },
+    "Model_evaluation": [
+      0.002116,
+      0.001944,
+      0.001847
+    ],
+    "Final_retrain": [
+      0.002184,
+      0.001936
+    ]
+  },
+  "MG17": {
+    "best_config": {
+      "units": 200,
+      "epochs": 80,
+      "lr": 0.01,
+      "layers": 2,
+      "activ": "relu"
+    },
+    "Model_evaluation": [
+      4.4e-05,
+      2.7e-05,
+      5.7e-05
+    ],
+    "Final_retrain": [
+      2.1e-05,
+      3.8e-05
+    ]
+  }
+}
