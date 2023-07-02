@@ -60,7 +60,7 @@ def show_result(tr_y_pred: Union[Tensor, ndarray],
 def make_sequence(df: ndarray,
                   steps: int,
                   dt: str,
-                  unsqueeze: bool = False,
+                  expand_dim: Union[int, None] = None,
                   to_numpy: bool = False) -> Tuple[Union[Tensor, ndarray], Union[Tensor, ndarray]]:
     # Build a tensor used for the training
     len_df = df.shape[0]  # Length of dataset
@@ -75,8 +75,8 @@ def make_sequence(df: ndarray,
         df_x[idx, :] = Tensor(x)
         df_y[idx, :] = y
 
-    if unsqueeze:
-        df_x = df_x.unsqueeze(-1)
+    if expand_dim is not None:
+        df_x = df_x.unsqueeze(expand_dim)
 
     if to_numpy:
         df_x, df_y = df_x.numpy(), df_y.numpy()
