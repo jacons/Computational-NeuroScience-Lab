@@ -1,15 +1,12 @@
 from copy import copy
 
 import numpy as np
-from numpy import ndarray, random
+from numpy import ndarray, random, ones
 
 
 class Hebbian_learning:
-    def __init__(self,
-                 source: ndarray,
-                 epochs: int = 2,
-                 lr: float = 0.1,
-                 threshold: float = 1e-03):
+    def __init__(self, source: ndarray, epochs: int = 2,
+                 lr: float = 0.1, threshold: float = 1e-03):
 
         self.__source = source  # Dataset
         self.__epochs = epochs  # Number of max epochs to perform
@@ -48,3 +45,57 @@ class Hebbian_learning:
 
             pred_W = copy(self.W)
             current_epoch += 1
+
+
+class BCM_Rule(Hebbian_learning):
+    def __init__(self, theta=0.1, theta_lr=0.1, **kwargs):
+        super().__init__(**kwargs)
+
+        self.__theta = theta
+        self.__theta_lr = theta_lr
+
+    def __theta_adapt(self, v: ndarray):
+        """
+        Oss.
+        We assume (as previously done for the classical hebbian rule) that the theta_lr
+        constant includes also the Tau_theta.
+        We use the euler's method to perform the differential
+        equation
+        """
+        self.__theta += self.__theta_lr * (np.power(v, 2) - self.__theta)
+
+    def _hebbian_rule(self, u: ndarray) -> ndarray:
+        v = self.W @ u
+        self.__theta_adapt(v)
+        return v * u * (v - self.__theta)
+
+
+class Oja_rule(Hebbian_learning):
+    def __init__(self, alpha: float, **kwargs):
+        super().__init__(**kwargs)
+        self.alpha = alpha
+
+    def _hebbian_rule(self, u: ndarray) -> ndarray:
+        v = self.W @ u
+        return (v * u) - self.alpha * (np.power(v, 2) * self.W)
+
+
+class Covariance_rule(Hebbian_learning):
+    def __init__(self, theta=0.1, **kwargs):
+        super().__init__(**kwargs)
+
+        self.__theta = theta
+
+    def _hebbian_rule(self, u: ndarray) -> ndarray:
+        v = self.W @ u
+        return v * (u - self.__theta)
+
+
+class Subtractive(Hebbian_learning):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.one = ones(2)
+
+    def _hebbian_rule(self, u: ndarray) -> ndarray:
+        v = self.W @ u
+        return v * u - (v * (self.one.T @ u) * self.one) / 2
