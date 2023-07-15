@@ -218,5 +218,3 @@ izhikevich_parameters = dict(
 )
 with open("configurations.json", "w") as f:
     json.dump(izhikevich_parameters, f)
-
-# %%

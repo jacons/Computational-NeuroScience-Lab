@@ -2,7 +2,6 @@ import numpy as np
 import torch
 from numpy import ndarray
 from numpy.linalg import eigvals
-from sklearn import linear_model
 from sklearn.linear_model import SGDRegressor
 from torch import Tensor, empty, zeros, tanh
 from torch.linalg import pinv
@@ -202,46 +201,5 @@ class sMNISTEsnClassifier(LatentESN_torch):
         acc = None
         if y is not None:
             acc = compute_acc(predicted=y_pred, labels=y.argmax(-1))
-
-        return (acc, y_pred) if acc is not None else y_pred
-
-
-class EsnSvmClassifier(LatentESN_torch):
-    def __init__(self, input_size: int, hidden_dim: int, omega: float, spectral_radius: float,
-                 leakage_rate: float, device: str = "cpu"):
-        super().__init__(input_size, hidden_dim, omega, spectral_radius, leakage_rate, device)
-
-        self.clf = linear_model.SGDClassifier(loss="squared_error", n_jobs=-1, verbose=1)
-
-    def fit(self, x: Tensor, y: Tensor = None) -> Tensor:
-        # Perform the LAST hidden states
-        h_last = self.reservoir_last(seq=x).cpu()  # [batch. hidden_dim]
-
-        print("Fitting...")
-        self.clf.fit(h_last, y, )
-        print("Predict..")
-        y_pred = self.clf.predict(h_last)
-
-        return self.MSE(y, y_pred)
-
-    def predict(self, x: Tensor, y: Tensor = None):
-        """
-        Perform the forward pass.
-        If it provided the target,
-        it performs also the loss.
-        :param x: Input signal
-        :param y: Target signal
-        """
-
-        # Perform the LAST hidden states
-        h_last = self.reservoir_last(seq=x).cpu()  # [batch. hidden_dim]
-
-        # Output signal
-        print("Predict..")
-        y_pred = self.clf.predict(h_last)
-
-        acc = None
-        if y is not None:
-            acc = compute_acc(y, y_pred)
 
         return (acc, y_pred) if acc is not None else y_pred
