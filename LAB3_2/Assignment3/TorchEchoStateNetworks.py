@@ -1,3 +1,5 @@
+from typing import Union
+
 import numpy as np
 import torch
 from numpy import ndarray
@@ -6,8 +8,16 @@ from sklearn.linear_model import SGDRegressor
 from torch import Tensor, empty, zeros, tanh
 from torch.linalg import pinv
 
-from Utils.utils import compute_acc
 
+def compute_acc(predicted: Union[Tensor, ndarray], labels: Union[Tensor, ndarray]):
+    """
+    Compute the accuracy of model both for real and fake images
+    :param predicted: label predicted by discriminator
+    :param labels:  true label
+    :return:
+    """
+    correct = sum(predicted.argmax(-1) - labels == 0)
+    return float(correct) / len(labels)
 
 class LatentESN_torch:
     def __init__(self, input_size: int, hidden_dim: int, omega: float, spectral_radius: float,
